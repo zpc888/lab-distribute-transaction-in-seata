@@ -1,0 +1,15 @@
+{
+  "accountId": 1,
+  "items": [
+    {
+      "productId": 10,
+      "orderQuality": 4,
+      "orderUnitPrice": 4.25
+    },
+    {
+      "productId": 20,
+      "orderQuality": 2,
+      "orderUnitPrice": 6
+    }
+  ]
+}
