@@ -1,5 +1,12 @@
 # Goal
 Try to demo seata distribute transaction server, how to rollback committed microservices transactions
+# Technical Stack
+* Spring Boot 2.3.3
+* Spring Cloud 2.2.4
+* Seata 2.2.0
+* Java 14 
+* Kotlin 1.3
+* Gradle, Docker, Zipkin, etc. 
 # Design
 ## Hypothetical Scenario Overview
 It mimics an online shopping system, which contains:
