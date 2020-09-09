@@ -32,7 +32,7 @@ class OrderController {
     private var accountBalanceErrorRangeTo: String = "50"
 
 //    @Transactional
-    @GlobalTransactional(rollbackFor = [Exception::class])
+    @GlobalTransactional(rollbackFor = [Exception::class], timeoutMills = 3000)
     @PostMapping(path = ["orders"])
     fun newOrder(@RequestBody order: Order): Mono<Order> {
         log.debug(">>> order: {}", order)
@@ -66,6 +66,7 @@ class OrderController {
         log.debug("Step.4 yes account still valid < OK")
 
         log.debug("<<< order: {} all done", order)
+//        val i = 1/0
         return Mono.just(order)
     }
 
