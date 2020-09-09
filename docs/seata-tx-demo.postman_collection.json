@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "3a91efdc-b188-4de2-aa39-ea28abf1ca36",
+		"name": "seata-tx-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\": 1,\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"orderQuality\": 4,\n            \"orderUnitPrice\": 4.25\n        },\n        {\n            \"productId\": 2,\n            \"orderQuality\": 2,\n            \"orderUnitPrice\": 6\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9011/api-order/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9011",
+					"path": [
+						"api-order",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new tx",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"accountId\": 11,\n  \"txType\": \"ORDER\",\n  \"txAmount\": 59.00,\n  \"refId\": \"order-8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9021/api-account/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9021",
+					"path": [
+						"api-account",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inventory record update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": 1,\n  \"quality\": 30\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9031/api-inventory/inventories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9031",
+					"path": [
+						"api-inventory",
+						"inventories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inventory new outbound order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 100,\n    \"items\":\n[\n\n{\n  \"productId\": 2,\n  \"quality\": 30\n}\n, {\n  \"productId\": 3,\n  \"quality\": 60\n}\n]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9031/api-inventory/outbound-orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9031",
+					"path": [
+						"api-inventory",
+						"outbound-orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "server time teller",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
