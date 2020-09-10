@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"accountId\": 1,\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"orderQuality\": 4,\n            \"orderUnitPrice\": 4.25\n        },\n        {\n            \"productId\": 2,\n            \"orderQuality\": 2,\n            \"orderUnitPrice\": 6\n        }\n    ]\n}",
+					"raw": "{\n    \"accountId\": 1,\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"orderQuantity\": 4,\n            \"orderUnitPrice\": 4.25\n        },\n        {\n            \"productId\": 2,\n            \"orderQuantity\": 2,\n            \"orderUnitPrice\": 6\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"productId\": 1,\n  \"quality\": 30\n}",
+					"raw": "{\n  \"productId\": 1,\n  \"quantity\": 30\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"orderId\": 100,\n    \"items\":\n[\n\n{\n  \"productId\": 2,\n  \"quality\": 30\n}\n, {\n  \"productId\": 3,\n  \"quality\": 60\n}\n]\n}",
+					"raw": "{\n    \"orderId\": 100,\n    \"items\":\n[\n\n{\n  \"productId\": 2,\n  \"quantity\": 30\n}\n, {\n  \"productId\": 3,\n  \"quantity\": 60\n}\n]\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -39,7 +39,7 @@ CREATE TABLE `prot_product` (
 
 CREATE TABLE `prot_inventory` (
   `prod_id` bigint(20) NOT NULL,
-  `prod_quality` int(10) NOT NULL,
+  `prod_quantity` int(10) NOT NULL,
   `prod_unit_price`   decimal(10, 2) NOT NULL,
   PRIMARY KEY (`prod_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -52,7 +52,7 @@ insert into prot_product (cat_code, prod_name) values
     ('fruit', 'apple'),
     ('fruit', 'banana'),
     ('fruit', 'pearl');
-insert into prot_inventory (prod_id, prod_quality, prod_unit_price) values
+insert into prot_inventory (prod_id, prod_quantity, prod_unit_price) values
     ((select prod_id from prot_product where cat_code='fruit' and prod_name='apple'), 60, 1.00),
     ((select prod_id from prot_product where cat_code='fruit' and prod_name='banana'), 60, 2.00),
     ((select prod_id from prot_product where cat_code='fruit' and prod_name='pearl'), 60, 3.00);

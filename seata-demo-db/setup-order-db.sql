@@ -34,7 +34,7 @@ CREATE TABLE `prot_order_item` (
   `order_item_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_id` bigint(20) NOT NULL,
   `prod_id`  bigint(20) NOT NULL,
-  `order_quality` int(10) default 1 NOT NULL,
+  `order_quantity` int(10) default 1 NOT NULL,
   `order_unit_price`   decimal(10, 2) NOT NULL,
   PRIMARY KEY (`order_item_id`),
   KEY `ORDER_ORDER_ID` (`order_id`)

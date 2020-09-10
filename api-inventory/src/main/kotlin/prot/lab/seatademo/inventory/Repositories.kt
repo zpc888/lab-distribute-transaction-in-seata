@@ -10,17 +10,17 @@ interface InventoryRepository {
 
     // param1 or order is the parameters name
     @Update("<script> update prot_inventory " +
-//            "<if test=\"record.recordType.name().equals('OUTBOUND')\"> set prod_quality = prod_quality - #{record.quality} </if>" +
-//            "<if test=\"record.recordType.name().equals('INBOUND')\"> set prod_quality = prod_quality + #{record.quality} </if> " +
-            "<if test=\"record.recordType.shouldDecrease()\"> set prod_quality = prod_quality - #{record.quality} </if>" +
-            "<if test=\"record.recordType.shouldIncrease()\"> set prod_quality = prod_quality + #{record.quality} </if> " +
+//            "<if test=\"record.recordType.name().equals('OUTBOUND')\"> set prod_quantity = prod_quantity - #{record.quantity} </if>" +
+//            "<if test=\"record.recordType.name().equals('INBOUND')\"> set prod_quantity = prod_quantity + #{record.quantity} </if> " +
+            "<if test=\"record.recordType.shouldDecrease()\"> set prod_quantity = prod_quantity - #{record.quantity} </if>" +
+            "<if test=\"record.recordType.shouldIncrease()\"> set prod_quantity = prod_quantity + #{record.quantity} </if> " +
             "where prod_id = #{record.productId} </script> ")
     fun updateInventory(@Param("record") record: InventoryRecord): Int
 
-    @Select("select prod_id, prod_quality, prod_unit_price from prot_inventory where prod_id = #{productId}")
+    @Select("select prod_id, prod_quantity, prod_unit_price from prot_inventory where prod_id = #{productId}")
     @Results(value = [
         Result(id = true, column = "prod_id", property = "productId", jdbcType = JdbcType.BIGINT),
-        Result(column = "prod_quality", property = "quality", jdbcType = JdbcType.INTEGER),
+        Result(column = "prod_quantity", property = "quantity", jdbcType = JdbcType.INTEGER),
         Result(column = "prod_unit_price", property = "unitPrice", jdbcType = JdbcType.DECIMAL)
     ])
     fun selectInventoryByProductId(@Param("productId") productId: Long): Inventory

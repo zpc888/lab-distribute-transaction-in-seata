@@ -26,12 +26,12 @@ internal class OrderTest {
     "items": [
         {
             "productId": 10,
-            "orderQuality": 4,
+            "orderQuantity": 4,
             "orderUnitPrice": 4.25
         },
         {
             "productId": 20,
-            "orderQuality": 2,
+            "orderQuantity": 2,
             "orderUnitPrice": 6
         }
     ]

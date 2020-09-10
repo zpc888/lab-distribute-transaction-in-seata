@@ -20,10 +20,10 @@ data class Order (var orderId: Long?, val accountId: Long, var orderDate: Date?,
     @get:JsonIgnore
     val transaction: Transaction
         get() {
-           val amt = items.map { it.orderUnitPrice.multiply( BigDecimal(it.orderQuality)) }
+           val amt = items.map { it.orderUnitPrice.multiply( BigDecimal(it.orderQuantity)) }
                    .reduce { acc, bigDecimal ->  acc.add(bigDecimal) }
             return Transaction(
-                    txType = TxType.ORDER
+                    txType = TxType.PURCHASE
                     , txAmount = amt
                     , refId = (orderId?.toString() ?: ""))
         }
@@ -32,17 +32,17 @@ data class Order (var orderId: Long?, val accountId: Long, var orderDate: Date?,
     val outboundOrder: OutboundOrder
         get() {
             val records = items.map {
-                InventoryRecord(it.productId, RecordType.OUTBOUND, it.orderQuality, it.orderUnitPrice)
+                InventoryRecord(it.productId, RecordType.OUTBOUND, it.orderQuantity, it.orderUnitPrice)
             }
             return OutboundOrder(this.orderId!!, records)
         }
 }
 
 data class OrderItem(var itemId: Long?, var orderId: Long?
-                       , val productId: Long = 0L, val orderQuality: Int, val orderUnitPrice: BigDecimal) {
+                       , val productId: Long = 0L, val orderQuantity: Int, val orderUnitPrice: BigDecimal) {
     // computed property - get is must for jsonIgnore since amount can be field, setter, getter, constructor in kotlin
     @get:JsonIgnore
     val amount: BigDecimal
-        get() { return if (orderQuality == 1) orderUnitPrice else orderUnitPrice.multiply(BigDecimal(orderQuality))}
+        get() { return if (orderQuantity == 1) orderUnitPrice else orderUnitPrice.multiply(BigDecimal(orderQuantity))}
 }
 

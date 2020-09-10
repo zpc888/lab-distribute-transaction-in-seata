@@ -24,14 +24,14 @@ data class WarehousingEntry (val entryId: Long, val items: List<InventoryRecord>
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class Inventory (val productId: Long
-                            , var quality: Int, var unitPrice: BigDecimal? = null) {
+                            , var quantity: Int, var unitPrice: BigDecimal? = null) {
 }
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class InventoryRecord (val productId: Long, var recordType: RecordType = RecordType.OUTBOUND
-                    , var quality: Int, var unitPrice: BigDecimal? = null) {
+                    , var quantity: Int, var unitPrice: BigDecimal? = null) {
 }
 
 interface InventoryApi {

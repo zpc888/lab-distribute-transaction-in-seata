@@ -17,7 +17,7 @@ class InventoryService {
         if (count == 1) {
             // ok
             val ret = inventoryRepository.selectInventoryByProductId(record.productId)
-            if (ret.quality < 0) {
+            if (ret.quantity < 0) {
                 throw RuntimeException("Negative inventory for product id: ${record.productId}")
             } else {
                 return ret;

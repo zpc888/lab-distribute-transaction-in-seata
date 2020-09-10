@@ -16,9 +16,9 @@ interface OrderRepository {
 
     @Insert(value = [
         "<script>",
-        "insert into prot_order_item (order_id, prod_id, order_quality, order_unit_price) values ",
+        "insert into prot_order_item (order_id, prod_id, order_quantity, order_unit_price) values ",
         "<foreach collection='orderItems' item='item' separator=','>",
-        "( #{item.orderId}, #{item.productId}, #{item.orderQuality}, #{item.orderUnitPrice})",
+        "( #{item.orderId}, #{item.productId}, #{item.orderQuantity}, #{item.orderUnitPrice})",
         "</foreach>",
         "</script>"
     ])

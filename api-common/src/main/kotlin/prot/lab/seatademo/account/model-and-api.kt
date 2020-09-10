@@ -15,7 +15,7 @@ data class Account (var id: Long?, val name: String, var balance: BigDecimal?) {
 }
 
 enum class TxType {
-    ORDER, DEPOSIT, FEE
+    PURCHASE, DEPOSIT, FEE
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
