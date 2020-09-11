@@ -12,6 +12,7 @@ import kotlin.jvm.javaClass
 import prot.lab.seatademo.common.getLogger
 import java.lang.Exception
 
+@CrossOrigin
 @RestController
 //@RequestMapping("/api-account")
 class InventoryController: InventoryApi {
@@ -24,6 +25,10 @@ class InventoryController: InventoryApi {
         val ret = inventoryService.updateInventory(inventory)
         log.debug("<<< after update: {}", ret)
         return ret
+    }
+
+    override fun getInventories(): List<Inventory> {
+        return inventoryService.getInventories()
     }
 
     @GlobalTransactional(rollbackFor = [Exception::class])

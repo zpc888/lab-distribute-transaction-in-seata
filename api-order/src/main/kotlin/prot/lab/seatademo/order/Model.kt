@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import java.math.BigDecimal
 import java.util.*
 import prot.lab.seatademo.account.*;
+import prot.lab.seatademo.inventory.Inventory
 import prot.lab.seatademo.inventory.InventoryRecord
 import prot.lab.seatademo.inventory.OutboundOrder
 import prot.lab.seatademo.inventory.RecordType
@@ -46,3 +47,7 @@ data class OrderItem(var itemId: Long?, var orderId: Long?
         get() { return if (orderQuantity == 1) orderUnitPrice else orderUnitPrice.multiply(BigDecimal(orderQuantity))}
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class AccountBalanceAndInventories(val accountId: Long, val accountName: String, val balance: BigDecimal
+        , var products: List<Inventory>?)

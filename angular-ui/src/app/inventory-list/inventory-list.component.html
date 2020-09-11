@@ -1,0 +1,70 @@
+<div class="content-header">Shopping</div>
+<mat-grid-list cols="3">
+  <mat-grid-tile *ngFor="let prod of inventoryList$ | async">
+    <mat-card>
+      <mat-card-title>{{prod.productName}}</mat-card-title>
+      <mat-card-content>
+        <img class="product" src="assets/banana.jpg" *ngIf="'banana' === prod.productName" />
+        <img class="product" src="assets/apple.jpg" *ngIf="'apple' === prod.productName" />
+        <img class="product" src="assets/pear.jpg" *ngIf="'pear' === prod.productName" />
+        <div class="price">{{prod.unitPrice | currency}}</div>
+      </mat-card-content>
+      <mat-card-footer>
+<!--          <mat-label>Quantity:</mat-label>-->
+          <input matInput type="number" min="-999" max="999" step="1" placeholder="1" [(ngModel)]="prod.buyQuantity" />
+        <button mat-raised-button color="primary" (click)="buy(prod)">Buy</button></mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="content-header">Shopping Cart<span *ngIf="shoppingCart.totalAmount() == 0" style="color: red"> ( Empty )</span></div>
+<table *ngIf="shoppingCart.totalAmount() != 0" mat-table [dataSource]="shoppingCart.allProducts()" class="shoppingCart">
+  <ng-container matColumnDef="productName">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+    <td mat-footer-cell *matFooterCellDef><span *ngIf="shoppingCart.totalQuantity() !=0">Total</span></td>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+    <td mat-footer-cell *matFooterCellDef><span *ngIf="shoppingCart.totalQuantity() != 0">{{shoppingCart.totalQuantity()}}</span></td>
+  </ng-container>
+  <ng-container matColumnDef="unitPrice">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let element"> {{element.unitPrice | currency}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Amount</th>
+    <td mat-cell *matCellDef="let element"> {{(element.unitPrice * element.quantity) | currency}} </td>
+    <td mat-footer-cell *matFooterCellDef><span *ngIf="shoppingCart.totalQuantity() != 0">{{shoppingCart.totalAmount() | currency}}</span></td>
+  </ng-container>
+  <ng-container matColumnDef="del">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-fab color="primary" aria-label="Remove from shopping cart" (click)="removeFromShoppingCart(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <button *ngIf="shoppingCart.totalQuantity() != 0" mat-fab color="primary" aria-label="Empty shopping cart" (click)="removeAllFromShoppingCart()">
+        <mat-icon>empty cart</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="cart-overall">
+<!--    <th mat-header-cell *matHeaderCellDef colspan="5" class="cart-overall"><h2>Shopping Cart</h2></th>-->
+    <td mat-footer-cell *matFooterCellDef colspan="5" class="cart-overall">
+      <button mat-fat color="primary" (click)="purchase()">Purchase</button>
+    </td>
+  </ng-container>
+
+<!--  <tr mat-header-row *matHeaderRowDef="['cart-overall']" class="cart-overall-header"></tr>-->
+  <tr mat-header-row *matHeaderRowDef="displayedCols" class="cart-data-header"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedCols"></tr>
+<!--  <ng-template [ngIf]="shoppingCart.totalQuantity() != 0">-->
+    <tr mat-footer-row *matFooterRowDef="displayedCols" class="cart-data-footer"></tr>
+    <tr mat-footer-row *matFooterRowDef="['cart-overall']" class="cart-overall-header"></tr>
+<!--  </ng-template>-->
+</table>

@@ -2,6 +2,7 @@ package prot.lab.seatademo.account
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -29,4 +30,7 @@ interface AccountApi {
     fun newTranaction(@PathVariable accountId: Long, @RequestBody tx: Transaction): Account
     // reactive-style rest-api transaction doesn't work properly using seata at-mode
 //    fun newTranaction(@RequestBody tx: Transaction): Mono<Account>
+
+    @GetMapping(path = ["/api-account/accounts/{accountId}"])
+    fun getAccount(@PathVariable accountId: Long): Account
 }

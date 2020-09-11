@@ -51,8 +51,8 @@ insert into prot_catalog (cat_code, cat_name) values
 insert into prot_product (cat_code, prod_name) values
     ('fruit', 'apple'),
     ('fruit', 'banana'),
-    ('fruit', 'pearl');
+    ('fruit', 'pear');
 insert into prot_inventory (prod_id, prod_quantity, prod_unit_price) values
     ((select prod_id from prot_product where cat_code='fruit' and prod_name='apple'), 60, 1.00),
     ((select prod_id from prot_product where cat_code='fruit' and prod_name='banana'), 60, 2.00),
-    ((select prod_id from prot_product where cat_code='fruit' and prod_name='pearl'), 60, 3.00);
+    ((select prod_id from prot_product where cat_code='fruit' and prod_name='pear'), 60, 3.00);

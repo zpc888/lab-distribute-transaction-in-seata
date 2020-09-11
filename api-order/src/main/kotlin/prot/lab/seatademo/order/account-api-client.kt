@@ -20,6 +20,10 @@ class AccountApiFallback: AccountApiClient {
 //        return Mono.empty()
     }
 
+    override fun getAccount(accountId: Long): Account {
+        throw RuntimeException("Fail in getting account ${accountId} info")
+    }
+
     companion object {
         //      private val log = getLogger(OrderController::class.java)        // 1. need to change class-name everytime; 2. singleton -- not static
         @JvmStatic

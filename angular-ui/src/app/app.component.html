@@ -1,0 +1,19 @@
+<div class="demo">
+  <div class="demo-title">
+    Seata Distributed Transaction (AT Mode) Demo
+  </div>
+  <div class="demo-author">
+    By <a href="https://github.com/zpc888/lab-distribute-transaction-in-seata">George Zhou</a>
+  </div>
+</div>
+<mat-grid-list cols="2">
+  <mat-grid-tile>
+    <app-inventory-list class="shopping demo-content" [shoppingCart]="shoppingCart" (purchased)="onPurchased($event)"></app-inventory-list>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <app-db-tool [shouldRefresh]="refreshDb" (refreshed)="onRefreshed($event)" class="db-monitoring demo-content"></app-db-tool>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<router-outlet></router-outlet>

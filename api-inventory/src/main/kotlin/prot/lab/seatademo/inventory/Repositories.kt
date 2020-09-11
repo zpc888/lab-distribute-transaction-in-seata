@@ -17,13 +17,24 @@ interface InventoryRepository {
             "where prod_id = #{record.productId} </script> ")
     fun updateInventory(@Param("record") record: InventoryRecord): Int
 
-    @Select("select prod_id, prod_quantity, prod_unit_price from prot_inventory where prod_id = #{productId}")
-    @Results(value = [
+    @Select(InventoryRepository.SELECT_INVENTORY_FOR_PROD_ID)
+    @Results(id = "InventoryMapping", value = [
         Result(id = true, column = "prod_id", property = "productId", jdbcType = JdbcType.BIGINT),
+        Result(column = "prod_name", property = "productName", jdbcType = JdbcType.VARCHAR),
         Result(column = "prod_quantity", property = "quantity", jdbcType = JdbcType.INTEGER),
         Result(column = "prod_unit_price", property = "unitPrice", jdbcType = JdbcType.DECIMAL)
     ])
     fun selectInventoryByProductId(@Param("productId") productId: Long): Inventory
+
+
+    @Select(InventoryRepository.SELECT_INVENTORY)
+    @ResultMap("InventoryMapping")
+    fun getInventories(): List<Inventory>
+
+    companion object {
+        const val SELECT_INVENTORY = "select i.prod_id, p.prod_name, i.prod_quantity, i.prod_unit_price from prot_inventory i join prot_product p on i.prod_id = p.prod_id"
+        const val SELECT_INVENTORY_FOR_PROD_ID = "$SELECT_INVENTORY where i.prod_id = #{productId}"
+    }
 
 //    @Insert(
 //        "insert into prot_transaction (account_id, tx_date, tx_type, tx_amount, ref_id) " +

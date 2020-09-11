@@ -31,6 +31,7 @@ class OrderController {
     @Value("\${app.account.balance.error.range.to: 50}")
     private var accountBalanceErrorRangeTo: String = "50"
 
+    @CrossOrigin
 //    @Transactional
     @GlobalTransactional(rollbackFor = [Exception::class], timeoutMills = 3000)
     @PostMapping(path = ["orders"])
@@ -76,6 +77,14 @@ class OrderController {
             throw RuntimeException("account balance is not allowed between ${accountBalanceErrorRangeFrom} and ${accountBalanceErrorRangeTo} (exclusive), but it is [${acct.balance}] now")
         }
 
+    }
+
+    @CrossOrigin
+    @GetMapping(path=["account-balance-and-inventories/{accountId}"])
+    fun accountBalanceAndInventories(@PathVariable("accountId") accountId: Long): AccountBalanceAndInventories {
+        val account = accountApiClient.getAccount(accountId);
+        val products = inventoryApiClient.getInventories();
+        return AccountBalanceAndInventories(account.id!!, account.name, account.balance!!, products)
     }
 
     @GetMapping(path = ["server-time-teller"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])

@@ -1,0 +1,39 @@
+<div class="content-header">DB Maintenance</div>
+<section class="content-db-button">
+  <button mat-raised-button color="warn">Reset Database</button>
+</section>
+<div class="content-header">
+  DB Monitoring
+  <button mat-raised-button color="accent" (click)="refresh()">Refresh</button>
+</div>
+<table mat-table [dataSource]="descendingSnapshots()" class="db-snapshots">
+  <ng-container matColumnDef="atTime">
+    <th mat-header-cell *matHeaderCellDef>Capture At</th>
+    <td mat-cell *matCellDef="let element"> {{element.atTime | date: 'mediumTime'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="accountName">
+    <th mat-header-cell *matHeaderCellDef>Account Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.accountName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="balance">
+    <th mat-header-cell *matHeaderCellDef>Balance</th>
+    <td mat-cell *matCellDef="let element"> {{element.balance | currency}} </td>
+  </ng-container>
+  <ng-container matColumnDef="inventory">
+    <th mat-header-cell *matHeaderCellDef>Inventory List</th>
+    <td mat-cell *matCellDef="let element">
+      <table mat-table [dataSource]="element.products" class="db-snapshots-product">
+        <ng-container matColumnDef="productName">
+          <td mat-cell *matCellDef="let prod"> {{prod.productName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <td mat-cell *matCellDef="let prod"> {{prod.quantity}} </td>
+        </ng-container>
+        <tr mat-row *matRowDef="let row2; columns: ['productName', 'quantity']"></tr>
+      </table>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['atTime', 'accountName', 'balance', 'inventory']" class="cart-data-header"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['atTime', 'accountName', 'balance', 'inventory']"></tr>
+</table>

@@ -39,6 +39,10 @@ class AccountController: AccountApi {
         return account
     }
 
+    override fun getAccount(accountId: Long): Account {
+        return accountService.getAccountById(accountId);
+    }
+
     @GetMapping(path = ["/api-account/server-time-teller"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun heartbeat(): Flux<String> = Flux.range(1, 21)
             .delayElements(Duration.ofSeconds(1))

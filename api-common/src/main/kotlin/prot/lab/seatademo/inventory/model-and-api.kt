@@ -2,10 +2,7 @@ package prot.lab.seatademo.inventory
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -23,7 +20,7 @@ data class WarehousingEntry (val entryId: Long, val items: List<InventoryRecord>
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class Inventory (val productId: Long
+data class Inventory (val productId: Long, val productName: String
                             , var quantity: Int, var unitPrice: BigDecimal? = null) {
 }
 
@@ -42,4 +39,7 @@ interface InventoryApi {
 
     @PostMapping(path = ["/api-inventory/outbound-orders"])
     fun newOutboundOrder(@RequestBody outboundOrder: OutboundOrder): List<Inventory>
+
+    @GetMapping(path = ["/api-inventory/inventories"])
+    fun getInventories(): List<Inventory>
 }

@@ -26,4 +26,8 @@ class InventoryService {
             throw RuntimeException("No inventory for product id: ${record.productId}")
         }
     }
+
+    fun getInventories(): List<Inventory> {
+        return inventoryRepository.getInventories();
+    }
 }
