@@ -6,6 +6,17 @@ export class Product {
   unitPrice: number
 }
 
+export function marshTo<A>(o: Object, c: new() => A): A {
+  if (o) {
+    const ret = new c();
+    Object.assign(ret, o);
+    return ret;
+  } else {
+    // not sure to return empty A or null --- empty for now
+    return new c();
+  }
+}
+
 export class DbSnapshot {
   atTime?: Date;
   accountId: number;
@@ -67,6 +78,11 @@ export class OrderItem {
     ret.orderUnitPrice = product.unitPrice;
     return ret;
   }
+}
+
+export class AccountBalanceErrorRange {
+  from: string;
+  to: string;
 }
 
 export class ShoppingCart {

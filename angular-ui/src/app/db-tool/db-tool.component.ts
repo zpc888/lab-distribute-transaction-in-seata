@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {DbSnapshot} from "../common/common-model";
+import {AccountBalanceErrorRange, DbSnapshot} from "../common/common-model";
 import {timer} from "rxjs";
 import {DbToolService} from "./db-tool.service";
 
@@ -16,6 +16,8 @@ export class DbToolComponent implements OnInit, OnChanges {
   @Input()
   purchaseCounter: number;
 
+  accountBalanceErrorRange: AccountBalanceErrorRange;
+
   // @Output()
   // refreshed = new EventEmitter<boolean>();
 
@@ -24,7 +26,8 @@ export class DbToolComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.refresh();
-    }
+    this.dbToolService.getAccountBalanceErrorRange().subscribe( r => this.accountBalanceErrorRange = r );
+  }
 
   ngOnInit(): void {
     this.refresh();

@@ -44,14 +44,16 @@ export class InventoryListComponent implements OnInit {
     this.errorInfo = null;
     const order = Order.fromShoppingCart(this.shoppingCart);
     // this.serviceOrder.purchase(order);
-    this.serviceOrder.purchase(order).subscribe(x => {this.purchased.emit(true)}
-        , error => {
+    this.serviceOrder.purchase(order).subscribe(
+      x => {
+            this.purchased.emit(true);
+            this.removeAllFromShoppingCart();
+          }, error => {
           if (error.error && error.error.trace) {
             this.errorInfo = error.error.trace
           } else {
             this.errorInfo = JSON.stringify(error)
           }
       });
-    this.removeAllFromShoppingCart();
   }
 }

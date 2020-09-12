@@ -32,6 +32,26 @@ class OrderController {
     private var accountBalanceErrorRangeTo: String = "50"
 
     @CrossOrigin
+    @GetMapping(path = ["accountBalanceErrorRange"])
+    fun getAccountBalanceErrorRange(): Map<String, String> {
+        return mapOf( "from" to accountBalanceErrorRangeFrom, "to" to accountBalanceErrorRangeTo)
+    }
+
+    // only for demo purpose, it only work for single node. For scalability, it should use spring cloud config server
+    // see https://github.com/zpc888/spring-cloud-002 and https://github.com/zpc888/spring-cloud-002-config-center
+    @CrossOrigin
+    @PostMapping(path = ["accountBalanceErrorRange"])
+    fun updateAccountBalanceErrorRangeOnSingleNode(fromTo: Map<String, String>): Map<String, String> {
+        if (fromTo.containsKey("from")) {
+            accountBalanceErrorRangeFrom = fromTo["from"].toString()
+        }
+        if (fromTo.containsKey("to")) {
+            accountBalanceErrorRangeFrom = fromTo["to"].toString()
+        }
+        return mapOf( "from" to accountBalanceErrorRangeFrom, "to" to accountBalanceErrorRangeTo)
+    }
+
+    @CrossOrigin
     @GlobalTransactional(rollbackFor = [Exception::class], timeoutMills = 3000)
     @PostMapping(path = ["resetDB/{accountId}"])
     fun resetDb(@PathVariable accountId: Long): Boolean {
@@ -85,7 +105,7 @@ class OrderController {
     private fun ensureAccountValid(acct: Account) {
         if (acct.balance!! < BigDecimal(accountBalanceErrorRangeTo)
                 && acct.balance!! > BigDecimal(accountBalanceErrorRangeFrom)) {
-            throw RuntimeException("account balance is not allowed between ${accountBalanceErrorRangeFrom} and ${accountBalanceErrorRangeTo} (exclusive), but it is [${acct.balance}] now")
+            throw RuntimeException("PURELY ON PURPOSE TO THROW EXCEPTION TO FORCE TX ROLLBACK: account balance is not allowed between ${accountBalanceErrorRangeFrom} and ${accountBalanceErrorRangeTo} (exclusive), but it is [${acct.balance}] now")
         }
 
     }

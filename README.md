@@ -6,7 +6,22 @@ Try to demo seata distributed transaction server, how to rollback committed micr
 * Seata 2.2.0
 * Java 14 
 * Kotlin 1.3
+* Angular 10
+* Angular Material 10
+* MySQL 8
 * Gradle, Docker, Zipkin, etc. 
+# Screenshots from running app
+## normal case - transaction committed ok
+* try to order 2 apple and 2 bananas
+![try1](docs/images/s01-try-to-buy-2-apple-2-banana.png)
+* expecting their inventory quantity: 60 - 2 = 58, and account balance: $100 - 2*1 - 2*2 = $94
+![ok1](docs/images/s02-suceed-buy-2-apple-2-banana.png)
+## abnormal case - transaction rollback due to NSF
+* try to order 40 pears
+![try2](docs/images/s03-try-to-buy-40-pears.png)
+* expecting pear quantity: 60 - 40 = 20 (ok), and balance: $94 - 3*40 = -26, error to rollback pear quantity update, order, etc, i.e. db-state should be the same as before
+![fail2](docs/images/s04-fail-to-buy-40-pear-due-to-nsf.png)
+
 # Design
 ## Hypothetical Scenario Overview
 It mimics an online shopping system, which contains:

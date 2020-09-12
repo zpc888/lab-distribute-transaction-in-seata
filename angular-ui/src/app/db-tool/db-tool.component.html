@@ -2,6 +2,14 @@
 <section class="content-db-button">
   <button mat-raised-button color="warn" (click)="resetDb()">Reset Database</button>
 </section>
+<div class="content-header">Exception Rules causing transaction rollback</div>
+<section class="content-exception-rule">
+  <mat-list role="list">
+    <mat-list-item role="listitem">after ordered, if product inventory quantity < 0, then rollback</mat-list-item>
+    <mat-list-item role="listitem">or if account balance < 0, then rollback</mat-list-item>
+    <mat-list-item *ngIf="accountBalanceErrorRange" role="listitem">or if account balance is in range {{accountBalanceErrorRange.from}} and {{accountBalanceErrorRange.to}}, then rollback</mat-list-item>
+  </mat-list>
+</section>
 <div class="content-header">
   DB Monitoring
   <button mat-raised-button color="accent" (click)="refresh()">Refresh</button>
