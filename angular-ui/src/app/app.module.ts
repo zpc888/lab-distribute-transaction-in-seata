@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {MatTableModule} from "@angular/material/table";
 import { DbToolComponent } from './db-tool/db-tool.component';
 import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatListModule} from "@angular/material/list";
   ],
     imports: [
         MatCardModule,
+        MatIconModule,
         MatListModule,
         MatTableModule,
         MatGridListModule,

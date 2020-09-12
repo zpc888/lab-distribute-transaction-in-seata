@@ -12,12 +12,12 @@
       <mat-card-footer>
 <!--          <mat-label>Quantity:</mat-label>-->
           <input matInput type="number" min="-999" max="999" step="1" placeholder="1" [(ngModel)]="prod.buyQuantity" />
-        <button mat-raised-button color="primary" (click)="buy(prod)">Buy</button></mat-card-footer>
+        <button mat-raised-button color="primary" (click)="buy(prod)"><mat-icon>add_shopping_cart</mat-icon></button></mat-card-footer>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
 
-<div class="content-header">Shopping Cart<span *ngIf="shoppingCart.totalAmount() == 0" style="color: red"> ( Empty )</span></div>
+<div class="content-header"><mat-icon>shopping_cart</mat-icon><span *ngIf="shoppingCart.totalAmount() == 0" style="color: red"> ( Empty )</span></div>
 <table *ngIf="shoppingCart.totalAmount() != 0" mat-table [dataSource]="shoppingCart.allProducts()" class="shoppingCart">
   <ng-container matColumnDef="productName">
     <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -48,7 +48,7 @@
     </td>
     <td mat-footer-cell *matFooterCellDef>
       <button *ngIf="shoppingCart.totalQuantity() != 0" mat-fab color="primary" aria-label="Empty shopping cart" (click)="removeAllFromShoppingCart()">
-        <mat-icon>empty cart</mat-icon>
+        <mat-icon>remove_shopping_cart</mat-icon>
       </button>
     </td>
   </ng-container>
