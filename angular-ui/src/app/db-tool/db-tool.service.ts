@@ -8,15 +8,20 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 export class DbToolService {
+  private accountId = 1;
 
   constructor(private serviceOrder: CommonServiceOrder) { }
 
   dbSnapshot(): Observable<DbSnapshot> {
-    return this.serviceOrder.httpGet('/api-order/account-balance-and-inventories/1')
+    return this.serviceOrder.httpGet("/api-order/account-balance-and-inventories/" + this.accountId)
       .pipe(map(o => { const ret = new DbSnapshot(); Object.assign(ret, o); return ret }));
   }
 
   purchase(order: Order) {
     return this.serviceOrder.httpPost('/api-order/orders', order);
+  }
+
+  dbReset() {
+    return this.serviceOrder.httpPost('/api-order/resetDB/' + this.accountId, null);
   }
 }

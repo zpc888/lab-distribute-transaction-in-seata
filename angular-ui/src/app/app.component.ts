@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'angular-ui';
 
   shoppingCart: ShoppingCart;
-  refreshDb: boolean = false;
+  counter: number = 0;
 
   ngOnInit(): void {
     this.shoppingCart = new ShoppingCart();
@@ -18,13 +18,8 @@ export class AppComponent implements OnInit {
 
   onPurchased(purchased: boolean) {
     if (purchased) {
-      this.refreshDb = true;
+      this.counter ++;
     }
   }
 
-  onRefreshed(refreshed: boolean) {
-    if (refreshed) {
-      this.refreshDb = false;
-    }
-  }
 }

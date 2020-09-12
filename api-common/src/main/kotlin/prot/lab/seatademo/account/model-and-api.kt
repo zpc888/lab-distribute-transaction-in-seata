@@ -33,4 +33,7 @@ interface AccountApi {
 
     @GetMapping(path = ["/api-account/accounts/{accountId}"])
     fun getAccount(@PathVariable accountId: Long): Account
+
+    @PostMapping(path = ["/api-account/accounts/{accountId}/reset"])
+    fun resetAccount(@PathVariable accountId: Long): Account;
 }

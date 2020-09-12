@@ -30,4 +30,8 @@ class InventoryService {
     fun getInventories(): List<Inventory> {
         return inventoryRepository.getInventories();
     }
+
+    fun resetInventories(): Int {
+        return inventoryRepository.resetInventory();
+    }
 }

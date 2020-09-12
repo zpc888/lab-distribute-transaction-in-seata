@@ -43,6 +43,12 @@ class AccountController: AccountApi {
         return accountService.getAccountById(accountId);
     }
 
+    @GlobalTransactional(rollbackFor = [Exception::class])
+    override fun resetAccount(accountId: Long): Account {
+        accountService.resetAccount(accountId);
+        return accountService.getAccountById(accountId);
+    }
+
     @GetMapping(path = ["/api-account/server-time-teller"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun heartbeat(): Flux<String> = Flux.range(1, 21)
             .delayElements(Duration.ofSeconds(1))

@@ -68,3 +68,7 @@
     <tr mat-footer-row *matFooterRowDef="['cart-overall']" class="cart-overall-header"></tr>
 <!--  </ng-template>-->
 </table>
+<div *ngIf="errorInfo">
+  <div class="content-header">Fail to purchase</div>
+  <div>{{errorInfo}}</div>
+</div>

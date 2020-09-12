@@ -42,4 +42,7 @@ interface InventoryApi {
 
     @GetMapping(path = ["/api-inventory/inventories"])
     fun getInventories(): List<Inventory>
+
+    @PostMapping(path = ["/api-inventory/inventories/reset"])
+    fun resetInventories(): Int
 }

@@ -31,4 +31,8 @@ class AccountingService {
         }
         return account
     }
+
+    fun resetAccount(accountId: Long) {
+        accountRepository.resetAccount(accountId);
+    }
 }

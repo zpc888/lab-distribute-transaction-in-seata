@@ -12,6 +12,7 @@ import {DbToolService} from "../db-tool/db-tool.service";
 })
 export class InventoryListComponent implements OnInit {
   inventoryList$: Observable<Array<Product>>;
+  errorInfo: string;
 
   @Input()
   shoppingCart: ShoppingCart;
@@ -40,9 +41,17 @@ export class InventoryListComponent implements OnInit {
   }
 
   purchase() {
+    this.errorInfo = null;
     const order = Order.fromShoppingCart(this.shoppingCart);
     // this.serviceOrder.purchase(order);
-    this.serviceOrder.purchase(order).subscribe(x => {this.purchased.emit(true)});
+    this.serviceOrder.purchase(order).subscribe(x => {this.purchased.emit(true)}
+        , error => {
+          if (error.error && error.error.trace) {
+            this.errorInfo = error.error.trace
+          } else {
+            this.errorInfo = JSON.stringify(error)
+          }
+      });
     this.removeAllFromShoppingCart();
   }
 }

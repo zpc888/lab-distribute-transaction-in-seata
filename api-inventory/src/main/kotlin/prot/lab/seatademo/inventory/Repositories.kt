@@ -31,6 +31,9 @@ interface InventoryRepository {
     @ResultMap("InventoryMapping")
     fun getInventories(): List<Inventory>
 
+    @Update("update prot_inventory set prod_quantity = 60" )
+    fun resetInventory(): Int
+
     companion object {
         const val SELECT_INVENTORY = "select i.prod_id, p.prod_name, i.prod_quantity, i.prod_unit_price from prot_inventory i join prot_product p on i.prod_id = p.prod_id"
         const val SELECT_INVENTORY_FOR_PROD_ID = "$SELECT_INVENTORY where i.prod_id = #{productId}"

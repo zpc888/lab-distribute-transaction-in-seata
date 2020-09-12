@@ -32,6 +32,17 @@ class OrderController {
     private var accountBalanceErrorRangeTo: String = "50"
 
     @CrossOrigin
+    @GlobalTransactional(rollbackFor = [Exception::class], timeoutMills = 3000)
+    @PostMapping(path = ["resetDB/{accountId}"])
+    fun resetDb(@PathVariable accountId: Long): Boolean {
+        orderRepository.deleteOrderItemsByAccountId(accountId)
+        orderRepository.deleteOrdersByAccountId(accountId)
+        accountApiClient.resetAccount(accountId)
+        inventoryApiClient.resetInventories();
+        return true;
+    }
+
+    @CrossOrigin
 //    @Transactional
     @GlobalTransactional(rollbackFor = [Exception::class], timeoutMills = 3000)
     @PostMapping(path = ["orders"])

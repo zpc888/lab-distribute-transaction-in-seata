@@ -24,6 +24,10 @@ class AccountApiFallback: AccountApiClient {
         throw RuntimeException("Fail in getting account ${accountId} info")
     }
 
+    override fun resetAccount(accountId: Long): Account {
+        throw RuntimeException("Fail in reset account ${accountId} info")
+    }
+
     companion object {
         //      private val log = getLogger(OrderController::class.java)        // 1. need to change class-name everytime; 2. singleton -- not static
         @JvmStatic

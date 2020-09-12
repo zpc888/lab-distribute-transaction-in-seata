@@ -1,9 +1,6 @@
 package prot.lab.seatademo.order
 
-import org.apache.ibatis.annotations.Insert
-import org.apache.ibatis.annotations.Mapper
-import org.apache.ibatis.annotations.Options
-import org.apache.ibatis.annotations.Param
+import org.apache.ibatis.annotations.*
 
 @Mapper
 //@Repository
@@ -13,6 +10,15 @@ interface OrderRepository {
             "(#{order.accountId}, #{order.orderDate}, #{order.totalPrice})")
     @Options(useGeneratedKeys = true, keyProperty = "orderId")
     fun newOrder(@Param("order") order: Order): Int
+
+//    @Delete("delete o, oi from prot_order o inner join prot_order_item oi on o.order_id = oi.order_id where o.account_id = #{accountId}")
+//    @Delete("delete from prot_order where account_id = #{accountId}")
+    @Delete("delete from prot_order")
+    fun deleteOrdersByAccountId(@Param("accountId") accountId: Long): Int
+
+//    @Delete("delete from prot_order_item where order_id in (select order_id from prot_order where account_id = #{accountId})")
+    @Delete("delete from prot_order_item")
+    fun deleteOrderItemsByAccountId(@Param("accountId") accountId: Long): Int
 
     @Insert(value = [
         "<script>",

@@ -27,4 +27,8 @@ interface AccountRepository {
         Result(column = "account_balance", property = "balance", jdbcType = JdbcType.DECIMAL)
     ])
     fun selectAccountById(accountId: Long): Account
+
+    @Update("update prot_account set account_balance = 100" +
+            " where account_id = #{accountId}")
+    fun resetAccount(@Param("accountId") accountId: Long): Int
 }

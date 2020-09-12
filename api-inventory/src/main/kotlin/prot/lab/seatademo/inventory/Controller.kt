@@ -31,6 +31,10 @@ class InventoryController: InventoryApi {
         return inventoryService.getInventories()
     }
 
+    override fun resetInventories(): Int {
+        return inventoryService.resetInventories()
+    }
+
     @GlobalTransactional(rollbackFor = [Exception::class])
     override fun newOutboundOrder(outboundOrder: OutboundOrder): List<Inventory> {
         log.debug(">>> outbound order: {}", outboundOrder)

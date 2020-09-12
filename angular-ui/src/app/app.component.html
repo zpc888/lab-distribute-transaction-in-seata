@@ -11,7 +11,7 @@
     <app-inventory-list class="shopping demo-content" [shoppingCart]="shoppingCart" (purchased)="onPurchased($event)"></app-inventory-list>
   </mat-grid-tile>
   <mat-grid-tile>
-    <app-db-tool [shouldRefresh]="refreshDb" (refreshed)="onRefreshed($event)" class="db-monitoring demo-content"></app-db-tool>
+    <app-db-tool [purchaseCounter]="counter" class="db-monitoring demo-content"></app-db-tool>
   </mat-grid-tile>
 
 </mat-grid-list>

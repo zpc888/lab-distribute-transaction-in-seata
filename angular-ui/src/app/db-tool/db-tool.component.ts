@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DbSnapshot} from "../common/common-model";
 import {timer} from "rxjs";
 import {DbToolService} from "./db-tool.service";
@@ -8,21 +8,26 @@ import {DbToolService} from "./db-tool.service";
   templateUrl: './db-tool.component.html',
   styleUrls: ['./db-tool.component.scss']
 })
-export class DbToolComponent implements OnInit {
+export class DbToolComponent implements OnInit, OnChanges {
   private static MAX_NUM_OF_CHANGED_COPIES = 10;
   private dbSnapshots: Array<DbSnapshot> = new Array<DbSnapshot>(DbToolComponent.MAX_NUM_OF_CHANGED_COPIES);
   private nextPos = 0;
 
   @Input()
-  shouldRefresh: boolean = false;
-  @Output()
-  refreshed = new EventEmitter<boolean>();
+  purchaseCounter: number;
 
-  constructor(private dbToolService: DbToolService) { }
+  // @Output()
+  // refreshed = new EventEmitter<boolean>();
+
+  constructor(private dbToolService: DbToolService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refresh();
+    }
 
   ngOnInit(): void {
-    this.dbToolService.dbSnapshot().subscribe(snapshot => this.addSnapshotIfChanged(snapshot))
-    this.refreshed.emit(true);
+    this.refresh();
     // timer(1000, 1000).subscribe(v => {
     //     this.dbToolService.dbSnapshot().subscribe(snapshot => this.addSnapshotIfChanged(snapshot))
     // })
@@ -30,7 +35,7 @@ export class DbToolComponent implements OnInit {
 
   refresh(): void {
     this.dbToolService.dbSnapshot().subscribe(snapshot => this.addSnapshotIfChanged(snapshot))
-    this.refreshed.emit(true);
+    // this.refreshed.emit(true);
   }
 
   private addSnapshotIfChanged(snapshot: DbSnapshot): void {
@@ -62,5 +67,9 @@ export class DbToolComponent implements OnInit {
 
   private isCircledBack(): boolean {
     return this.dbSnapshots[DbToolComponent.MAX_NUM_OF_CHANGED_COPIES - 1] !== undefined;
+  }
+
+  resetDb(): void {
+    this.dbToolService.dbReset().subscribe(_ => this.refresh());
   }
 }
