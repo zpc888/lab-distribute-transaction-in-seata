@@ -18,6 +18,8 @@ export class DbToolComponent implements OnInit, OnChanges {
 
   accountBalanceErrorRange: AccountBalanceErrorRange;
 
+  rollbackRulesSectionShown = true;
+
   // @Output()
   // refreshed = new EventEmitter<boolean>();
 
@@ -34,6 +36,10 @@ export class DbToolComponent implements OnInit, OnChanges {
     // timer(1000, 1000).subscribe(v => {
     //     this.dbToolService.dbSnapshot().subscribe(snapshot => this.addSnapshotIfChanged(snapshot))
     // })
+  }
+
+  toggleRollbackRulesSectionShowHide() {
+    this.rollbackRulesSectionShown = !this.rollbackRulesSectionShown;
   }
 
   refresh(): void {
